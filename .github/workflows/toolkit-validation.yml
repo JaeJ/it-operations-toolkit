@@ -1,0 +1,52 @@
+name: Toolkit Validation
+
+on:
+  push:
+    branches:
+      - main
+
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  validate:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Install PSScriptAnalyzer
+        shell: pwsh
+        run: |
+          Install-Module PSScriptAnalyzer -Force -Scope CurrentUser
+
+      - name: Analyze Toolkit Scripts
+        shell: pwsh
+        run: |
+
+          $Results = Invoke-ScriptAnalyzer `
+              -Path ./modules `
+              -Recurse
+
+          if ($Results) {
+
+              Write-Host "Analyzer Results:"
+              $Results | Format-Table -AutoSize
+
+          }
+
+          $Errors = $Results |
+              Where-Object { $_.Severity -eq "Error" }
+
+          if ($Errors) {
+
+              throw "PSScriptAnalyzer detected one or more errors."
+
+          }
+
+      - name: Validation Complete
+        shell: pwsh
+        run: |
+          Write-Host "Toolkit validation completed successfully."
