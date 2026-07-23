@@ -4,7 +4,7 @@ Describe "Get-ToolkitOverview Script" {
 
         $ScriptPath = Join-Path `
             $PSScriptRoot `
-            "..\\shared\\Get-ToolkitOverview.ps1"
+            "..\shared\Get-ToolkitOverview.ps1"
 
         Test-Path $ScriptPath | Should -BeTrue
 

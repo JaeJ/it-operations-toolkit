@@ -11,4 +11,6 @@ param(
 
 $Timestamp = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
 
-Write-Output "[$Timestamp] [$Level] $Message"
+$Entry = "[$Timestamp] [$Level] $Message"
+
+Write-Output $Entry

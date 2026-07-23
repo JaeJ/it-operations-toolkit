@@ -1,11 +1,13 @@
 [CmdletBinding()]
 param()
 
+. "$PSScriptRoot\..\..\..\shared\Write-ToolkitLog.ps1"
+
 try {
 
     $OS = Get-CimInstance Win32_OperatingSystem
 
-    [PSCustomObject]@{
+    $Result = [PSCustomObject]@{
         ComputerName = $env:COMPUTERNAME
         OS           = $OS.Caption
         LastBootTime = $OS.LastBootUpTime
@@ -13,9 +15,16 @@ try {
         ReportTime   = Get-Date
     }
 
+    Write-ToolkitLog `
+        -Message "System health report generated successfully."
+
+    $Result
+
 }
 catch {
 
-    Write-Error "Unable to retrieve system health information."
+    Write-ToolkitLog `
+        -Level Error `
+        -Message "Unable to retrieve system health information."
 
 }
