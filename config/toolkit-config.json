@@ -1,0 +1,7 @@
+{
+  "CompanyName": "Contoso",
+  "Environment": "Production",
+  "LogPath": "C:\\Toolkit\\Logs",
+  "ReportPath": "C:\\Toolkit\\Reports",
+  "Version": "2.0"
+}
