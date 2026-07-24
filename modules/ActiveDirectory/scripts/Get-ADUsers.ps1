@@ -1,18 +1,12 @@
-<#
-.SYNOPSIS
-Retrieves Active Directory user accounts.
-
-.DESCRIPTION
-Returns user account information from Active Directory.
-
-.EXAMPLE
-Get-ADUsers.ps1
-#>
-
 [CmdletBinding()]
 param()
 
+. "$PSScriptRoot\..\..\..\shared\Import-ToolkitModule.ps1"
+
 try {
+
+    Write-ToolkitLog `
+        -Message "Retrieving Active Directory users."
 
     Get-ADUser -Filter * |
     Select-Object `
@@ -24,6 +18,8 @@ try {
 }
 catch {
 
-    Write-Error "Unable to retrieve Active Directory users."
+    Write-ToolkitLog `
+        -Level Error `
+        -Message "Unable to retrieve Active Directory users."
 
 }

@@ -10,7 +10,7 @@ $Modules = @(
     "Reporting"
 )
 
-$ToolkitVersion = "2.0"
+$ToolkitVersion = "2.1"
 
 $ModuleSummary = foreach ($Module in $Modules) {
 
@@ -36,19 +36,29 @@ $ModuleSummary = foreach ($Module in $Modules) {
         Module      = $Module
         ScriptCount = $ScriptCount
         TestCount   = $TestCount
-        Status      = "Installed"
+        Health      = if ($ScriptCount -eq $TestCount) {
+                          "Healthy"
+                      }
+                      else {
+                          "Review"
+                      }
     }
 
 }
 
-Write-Host ""
-Write-Host "IT Operations Toolkit v$ToolkitVersion"
-Write-Host "======================================"
-Write-Host ""
-
 $ModuleSummary | Format-Table -AutoSize
 
 Write-Host ""
-Write-Host "Modules Installed: $($ModuleSummary.Count)"
-Write-Host "Total Scripts: $($ModuleSummary.ScriptCount | Measure-Object -Sum | Select-Object -ExpandProperty Sum)"
-Write-Host "Total Tests: $($ModuleSummary.TestCount | Measure-Object -Sum | Select-Object -ExpandProperty Sum)"
+Write-Host "Toolkit Version: $ToolkitVersion"
+
+Write-Host "Installed Modules: $($ModuleSummary.Count)"
+
+Write-Host "Total Scripts: $(
+    ($ModuleSummary.ScriptCount |
+        Measure-Object -Sum).Sum
+)"
+
+Write-Host "Total Tests: $(
+    ($ModuleSummary.TestCount |
+        Measure-Object -Sum).Sum
+)"

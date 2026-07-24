@@ -1,7 +1,12 @@
 [CmdletBinding()]
 param()
 
+. "$PSScriptRoot\..\..\..\shared\Import-ToolkitModule.ps1"
+
 try {
+
+    Write-ToolkitLog `
+        -Message "Retrieving Azure resource inventory."
 
     Get-AzResource |
     Select-Object `
@@ -13,6 +18,8 @@ try {
 }
 catch {
 
-    Write-Error "Unable to retrieve Azure resources."
+    Write-ToolkitLog `
+        -Level Error `
+        -Message "Unable to retrieve Azure resources."
 
 }
