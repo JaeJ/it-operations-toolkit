@@ -2,7 +2,7 @@
 
 ## Overview
 
-The IT Operations Toolkit is an enterprise-focused portfolio project designed to demonstrate infrastructure engineering, systems administration, automation, troubleshooting, reporting, and cloud operations skills.
+The IT Operations Toolkit is an enterprise-focused portfolio project designed to demonstrate infrastructure engineering, systems administration, automation, reporting, troubleshooting, and cloud operations skills.
 
 This project serves as the flagship repository that consolidates concepts and capabilities developed throughout:
 
@@ -10,7 +10,7 @@ This project serves as the flagship repository that consolidates concepts and ca
 - Infrastructure Scripts
 - Azure Lab
 
-into a unified operations platform.
+into a unified operational platform.
 
 ---
 
@@ -20,7 +20,7 @@ IT Operations teams are responsible for managing infrastructure, troubleshooting
 
 Many organizations rely on multiple disconnected scripts and tools to perform these tasks.
 
-The IT Operations Toolkit aims to provide a centralized framework for diagnostics, automation, reporting, and administration.
+The IT Operations Toolkit aims to provide a centralized framework for diagnostics, automation, reporting, administration, and operational visibility.
 
 ---
 
@@ -33,10 +33,25 @@ The IT Operations Toolkit aims to provide a centralized framework for diagnostic
 - Support cloud and on-premises administration
 - Develop reusable automation modules
 - Provide professional reporting capabilities
+- Integrate shared services, configuration, and validation
 
 ---
 
 ## Core Modules
+
+### Networking
+
+- DNS Diagnostics
+- Connectivity Testing
+- Port Validation
+- Network Reporting
+
+### Diagnostics
+
+- System Health Checks
+- Service Analysis
+- Event Log Reviews
+- Error Investigation
 
 ### Active Directory
 
@@ -52,26 +67,12 @@ The IT Operations Toolkit aims to provide a centralized framework for diagnostic
 - Virtual Machine Reporting
 - Governance Reviews
 
-### Diagnostics
-
-- System Health Checks
-- Service Analysis
-- Event Log Reviews
-- Error Investigation
-
 ### Microsoft 365
 
 - Tenant Reporting
 - Licensing Reviews
 - User Audits
 - Administration Reporting
-
-### Networking
-
-- DNS Diagnostics
-- Connectivity Testing
-- Port Validation
-- Network Reporting
 
 ### Reporting
 
@@ -82,114 +83,72 @@ The IT Operations Toolkit aims to provide a centralized framework for diagnostic
 
 ---
 
+## Shared Services
+
+Toolkit v2 introduced centralized shared services used across modules.
+
+### Configuration Management
+
+- Get-ToolkitConfiguration.ps1
+- toolkit-config.json
+
+### Initialization
+
+- Initialize-Toolkit.ps1
+
+### Logging
+
+- Write-ToolkitLog.ps1
+
+### Integration
+
+- Import-ToolkitModule.ps1
+
+### Health and Inventory
+
+- Get-ToolkitOverview.ps1
+
+### Dashboard Framework
+
+- New-ToolkitDashboard.ps1
+- Export-ToolkitDashboard.ps1
+
+---
+
 ## Repository Structure
 
 ```text
 it-operations-toolkit/
 │
 ├── .github/
+│   └── workflows/
+│       └── toolkit-validation.yml
+│
+├── config/
+│   └── toolkit-config.json
 │
 ├── docs/
 │   ├── architecture.md
-│   └── project-roadmap.md
+│   ├── project-roadmap.md
 │
 ├── examples/
-│   └── sample-output.md
+│   ├── sample-output.md
+│   └── toolkit-dashboard-output.md
 │
 ├── images/
 │   └── README.md
 │
 ├── modules/
+│   ├── Networking/
+│   ├── Diagnostics/
 │   ├── ActiveDirectory/
 │   ├── Azure/
-│   ├── Diagnostics/
 │   ├── Microsoft365/
-│   ├── Networking/
 │   └── Reporting/
 │
-├── tests/
-│   └── README.md
-│
-├── LICENSE
-└── README.md
-```
-
----
-
-## Development Status
-
-Current Phase:
-
-✅ Foundation Complete
-
-Planned Development:
-
-- Networking Module
-- Diagnostics Module
-- Active Directory Module
-- Microsoft 365 Module
-- Azure Module
-- Reporting Framework
-
----
-
-## Documentation
-
-Additional documentation can be found within the `/docs` folder.
-
-Available documentation includes:
-
-- Architecture Overview
-- Project Roadmap
-
----
-
-## Testing
-
-The testing framework will be expanded as modules are developed.
-
-Future testing includes:
-
-- Pester Testing
-- Parameter Validation
-- Output Validation
-- Error Handling Validation
-- GitHub Actions Automation
-
----
-
-## Long-Term Vision
-
-The IT Operations Toolkit is intended to become a centralized operational platform demonstrating:
-
-- Infrastructure Engineering
-- Systems Administration
-- Cloud Operations
-- Automation
-- Troubleshooting
-- Enterprise Reporting
-
-while serving as the centerpiece of this GitHub portfolio.
-
----
-
-## Technologies
-
-- PowerShell
-- Azure
-- Microsoft 365
-- Active Directory
-- Windows Server
-- Git
-- GitHub
-- VS Code
-
----
-
-## Author
-
-**Jae McNeal**
-
-Senior Systems Administrator
-
-PowerShell • Azure • Microsoft 365 • Active Directory • Infrastructure Automation • Windows Server
+├── shared/
+│   ├── Get-ToolkitConfiguration.ps1
+│   ├── Initialize-Toolkit.ps1
+│   ├── Write-ToolkitLog.ps1
+│   ├── Import-ToolkitModule.ps1
+│   ├── Get
