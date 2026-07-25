@@ -1,17 +1,18 @@
 [CmdletBinding()]
 param()
 
-Write-Host "Initializing IT Operations Toolkit..."
+. "$PSScriptRoot\Get-ToolkitConfiguration.ps1"
+. "$PSScriptRoot\Write-ToolkitLog.ps1"
 
-$ConfigPath = Join-Path $PSScriptRoot "..\\config\\toolkit-config.json"
+Write-ToolkitLog `
+    -Message "Initializing IT Operations Toolkit."
 
-if (Test-Path $ConfigPath) {
+$Configuration = Get-ToolkitConfiguration
 
-    Write-Host "Configuration loaded."
+Write-ToolkitLog `
+    -Message "Environment: $($Configuration.Environment)"
 
-}
-else {
+Write-ToolkitLog `
+    -Message "Version: $($Configuration.Version)"
 
-    Write-Error "Toolkit configuration not found."
-
-}
+$Configuration

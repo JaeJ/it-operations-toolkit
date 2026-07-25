@@ -2,8 +2,14 @@
 param()
 
 . "$PSScriptRoot\..\..\..\shared\Write-ToolkitLog.ps1"
+. "$PSScriptRoot\..\..\..\shared\Get-ToolkitConfiguration.ps1"
+
+$Configuration = Get-ToolkitConfiguration
 
 try {
+
+    Write-ToolkitLog `
+        -Message "Running in environment $($Configuration.Environment)"
 
     $OS = Get-CimInstance Win32_OperatingSystem
 
