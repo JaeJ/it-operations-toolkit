@@ -1,49 +1,38 @@
-# IT Oper*tions Toolkit Dashboard Example
+# IT Operations Toolkit Dashboard Example
 
-## Auto-Discovered Modules
-
-```text
-ActiveDirectory
-Azure
-Diagnostics
-Microsoft365
-Networking
-Reporting
-```
-
----
-
-## Dashboard Summary
+## Platform Summary
 
 ```text
 Toolkit Version : 3.0
 Installed Modules : 6
+Healthy Modules : 6
+Review Modules : 0
 Total Scripts : 18
 Total Tests : 18
 ```
 
 ---
 
-## Module Health
-
-```text
-Module              ScriptCount   TestCount   Health
-------              -----------   ---------   -------
-ActiveDirectory     3             3           Healthy
-Azure               3             3           Healthy
-Diagnostics         3             3           Healthy
-Microsoft365        3             3           Healthy
-Networking          3             3           Healthy
-Reporting           3             3           Healthy
-```
-
----
-
-## Features
+## Dashboard Capabilities
 
 - Automatic Module Discovery
 - Script Inventory Reporting
 - Test Inventory Reporting
 - Health Validation
 - Dashboard Reporting
-- Platform Status Overview
+- Configuration Framework
+- Shared Logging Framework
+
+---
+
+## Dashboard Components
+
+```text
+Get-ToolkitOverview.ps1
+        ↓
+New-ToolkitDashboard.ps1
+        ↓
+Export-ToolkitDashboard.ps1
+        ↓
+ToolkitDashboard.html
+```

@@ -9,9 +9,19 @@ $ToolkitData = & $OverviewScript
 
 $Dashboard = [PSCustomObject]@{
 
-    ToolkitVersion = "2.0"
+    ToolkitVersion = "3.0"
 
     InstalledModules = $ToolkitData.Count
+
+    HealthyModules = (
+        $ToolkitData |
+        Where-Object Health -eq "Healthy"
+    ).Count
+
+    ReviewModules = (
+        $ToolkitData |
+        Where-Object Health -eq "Review"
+    ).Count
 
     TotalScripts = (
         $ToolkitData.ScriptCount |
