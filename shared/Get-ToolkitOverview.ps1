@@ -1,47 +1,44 @@
 [CmdletBinding()]
 param()
 
-$Modules = @(
-    "Networking",
-    "Diagnostics",
-    "ActiveDirectory",
-    "Azure",
-    "Microsoft365",
-    "Reporting"
-)
+$ModulesPath = Join-Path `
+    $PSScriptRoot `
+    "..\modules"
 
-$ToolkitVersion = "2.1"
+$ToolkitVersion = "3.0"
+
+$Modules = Get-ChildItem `
+    -Path $ModulesPath `
+    -Directory
 
 $ModuleSummary = foreach ($Module in $Modules) {
 
-    $ModulePath = Join-Path `
-        "$PSScriptRoot\..\modules" `
-        $Module
+    $ModulePath = $Module.FullName
 
     $ScriptCount = (
         Get-ChildItem `
-            "$ModulePath\scripts" `
+            -Path "$ModulePath\scripts" `
             -Filter "*.ps1" `
             -ErrorAction SilentlyContinue
     ).Count
 
     $TestCount = (
         Get-ChildItem `
-            "$ModulePath\tests" `
+            -Path "$ModulePath\tests" `
             -Filter "*.Tests.ps1" `
             -ErrorAction SilentlyContinue
     ).Count
 
     [PSCustomObject]@{
-        Module      = $Module
+        Module      = $Module.Name
         ScriptCount = $ScriptCount
         TestCount   = $TestCount
         Health      = if ($ScriptCount -eq $TestCount) {
-                          "Healthy"
-                      }
-                      else {
-                          "Review"
-                      }
+            "Healthy"
+        }
+        else {
+            "Review"
+        }
     }
 
 }
@@ -49,6 +46,7 @@ $ModuleSummary = foreach ($Module in $Modules) {
 $ModuleSummary | Format-Table -AutoSize
 
 Write-Host ""
+
 Write-Host "Toolkit Version: $ToolkitVersion"
 
 Write-Host "Installed Modules: $($ModuleSummary.Count)"
