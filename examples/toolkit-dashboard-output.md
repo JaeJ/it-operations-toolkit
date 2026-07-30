@@ -13,14 +13,23 @@ Total Tests : 18
 
 ---
 
+## Environment Information
+
+```text
+Environment : Lab
+Version     : 2.0
+```
+
+---
+
 ## Dashboard Capabilities
 
 - Automatic Module Discovery
+- Configuration-Driven Behavior
 - Script Inventory Reporting
 - Test Inventory Reporting
 - Health Validation
 - Dashboard Reporting
-- Configuration Framework
 - Shared Logging Framework
 
 ---

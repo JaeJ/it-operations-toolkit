@@ -1,17 +1,27 @@
 [CmdletBinding()]
-param(
+param()
 
-    [string]$OutputPath = "$PSScriptRoot\..\examples\ToolkitDashboard.html"
+. "$PSScriptRoot\Get-ToolkitConfiguration.ps1"
+. "$PSScriptRoot\Write-ToolkitLog.ps1"
 
-)
+$Configuration = Get-ToolkitConfiguration
 
 $OverviewScript = Join-Path `
     $PSScriptRoot `
     "Get-ToolkitOverview.ps1"
 
-$ToolkitData = & $OverviewScript
+$OutputPath = Join-Path `
+    $PSScriptRoot `
+    "..\examples\ToolkitDashboard.html"
 
-$Style = @"
+try {
+
+    Write-ToolkitLog `
+        -Message "Generating Toolkit Dashboard."
+
+    $ToolkitData = & $OverviewScript
+
+    $Style = @"
 <style>
 body {
     font-family: Segoe UI, Arial, sans-serif;
@@ -47,15 +57,25 @@ tr:nth-child(even) {
 </style>
 "@
 
-$Html = $ToolkitData |
-    ConvertTo-Html `
-        -Head $Style `
-        -Title "IT Operations Toolkit Dashboard" `
-        -PreContent "<h1>IT Operations Toolkit Dashboard</h1><p>Platform Health Overview</p>" `
-        -PostContent "<p>Generated: $(Get-Date)</p>"
+    $Html = $ToolkitData |
+        ConvertTo-Html `
+            -Head $Style `
+            -Title "IT Operations Toolkit Dashboard" `
+            -PreContent "<h1>IT Operations Toolkit Dashboard</h1><p>Environment: $($Configuration.Environment)</p>" `
+            -PostContent "<p>Generated: $(Get-Date)</p>"
 
-$Html |
-    Set-Content `
-        -Path $OutputPath
+    $Html |
+        Set-Content `
+            -Path $OutputPath
 
-Write-Output "Dashboard exported to $OutputPath"
+    Write-ToolkitLog `
+        -Message "Dashboard exported successfully."
+
+}
+catch {
+
+    Write-ToolkitLog `
+        -Level Error `
+        -Message "Dashboard export failed."
+
+}
