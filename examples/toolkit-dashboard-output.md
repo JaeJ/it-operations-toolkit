@@ -13,24 +13,32 @@ Total Tests : 18
 
 ---
 
-## Environment Information
-
-```text
-Environment : Lab
-Version     : 2.0
-```
-
----
-
-## Dashboard Capabilities
+## Platform Capabilities
 
 - Automatic Module Discovery
 - Configuration-Driven Behavior
-- Script Inventory Reporting
-- Test Inventory Reporting
-- Health Validation
-- Dashboard Reporting
-- Shared Logging Framework
+- Shared Logging
+- Health Reporting
+- Dashboard Generation
+- HTML Export
+- PSScriptAnalyzer Validation
+- Automated Pester Testing
+
+---
+
+## Validation Workflow
+
+```text
+GitHub Push
+        ↓
+Toolkit Validation
+        ↓
+PSScriptAnalyzer
+        ↓
+Pester Tests
+        ↓
+Build Success
+```
 
 ---
 
