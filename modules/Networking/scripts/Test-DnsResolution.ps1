@@ -1,26 +1,19 @@
-<#
-.SYNOPSIS
-Tests DNS resolution for a specified host.
-
-.DESCRIPTION
-Resolves one or more hostnames and reports the resulting IP addresses.
-
-.PARAMETER Hostname
-Host name to resolve.
-
-.EXAMPLE
-Test-DnsResolution.ps1 -Hostname github.com
-#>
-
 [CmdletBinding()]
 param(
     [Parameter(Mandatory)]
     [string]$Hostname
 )
 
+. "$PSScriptRoot\..\..\..\shared\Import-ToolkitModule.ps1"
+
 try {
 
-    $Results = Resolve-DnsName -Name $Hostname -ErrorAction Stop
+    Write-ToolkitLog `
+        -Message "Resolving DNS for $Hostname."
+
+    $Results = Resolve-DnsName `
+        -Name $Hostname `
+        -ErrorAction Stop
 
     foreach ($Result in $Results) {
 
@@ -35,6 +28,8 @@ try {
 }
 catch {
 
-    Write-Error "DNS resolution failed for $Hostname"
+    Write-ToolkitLog `
+        -Level Error `
+        -Message "DNS resolution failed for $Hostname."
 
 }

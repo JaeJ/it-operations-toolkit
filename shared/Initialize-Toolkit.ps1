@@ -6,10 +6,10 @@ param()
 
 try {
 
+    $Configuration = Get-ToolkitConfiguration
+
     Write-ToolkitLog `
         -Message "Initializing IT Operations Toolkit."
-
-    $Configuration = Get-ToolkitConfiguration
 
     Write-ToolkitLog `
         -Message "Environment: $($Configuration.Environment)"
@@ -17,24 +17,11 @@ try {
     Write-ToolkitLog `
         -Message "Version: $($Configuration.Version)"
 
-    if (-not $Configuration.LogPath) {
-
-        Write-ToolkitLog `
-            -Level Warning `
-            -Message "LogPath is not configured."
-
-    }
-
-    if (-not $Configuration.ReportPath) {
-
-        Write-ToolkitLog `
-            -Level Warning `
-            -Message "ReportPath is not configured."
-
-    }
+    Write-ToolkitLog `
+        -Message "ReportPath: $($Configuration.ReportPath)"
 
     Write-ToolkitLog `
-        -Message "Toolkit initialization completed successfully."
+        -Message "LogPath: $($Configuration.LogPath)"
 
     $Configuration
 

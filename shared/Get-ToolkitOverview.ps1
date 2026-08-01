@@ -5,8 +5,6 @@ $ModulesPath = Join-Path `
     $PSScriptRoot `
     "..\modules"
 
-$ToolkitVersion = "3.0"
-
 $Modules = Get-ChildItem `
     -Path $ModulesPath `
     -Directory
@@ -29,6 +27,18 @@ $ModuleSummary = foreach ($Module in $Modules) {
             -ErrorAction SilentlyContinue
     ).Count
 
+    $ReadmeExists = Test-Path "$ModulePath\README.md"
+    $ChangelogExists = Test-Path "$ModulePath\CHANGELOG.md"
+    $DocsExists = Test-Path "$ModulePath\docs"
+    $ExamplesExists = Test-Path "$ModulePath\examples"
+
+    $Complete = (
+        $ReadmeExists -and
+        $ChangelogExists -and
+        $DocsExists -and
+        $ExamplesExists
+    )
+
     [PSCustomObject]@{
         Module      = $Module.Name
         ScriptCount = $ScriptCount
@@ -39,24 +49,9 @@ $ModuleSummary = foreach ($Module in $Modules) {
         else {
             "Review"
         }
+        Complete    = $Complete
     }
 
 }
 
-$ModuleSummary | Format-Table -AutoSize
-
-Write-Host ""
-
-Write-Host "Toolkit Version: $ToolkitVersion"
-
-Write-Host "Installed Modules: $($ModuleSummary.Count)"
-
-Write-Host "Total Scripts: $(
-    ($ModuleSummary.ScriptCount |
-        Measure-Object -Sum).Sum
-)"
-
-Write-Host "Total Tests: $(
-    ($ModuleSummary.TestCount |
-        Measure-Object -Sum).Sum
-)"
+$ModuleSummary
