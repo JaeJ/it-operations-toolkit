@@ -39,16 +39,27 @@ $ModuleSummary = foreach ($Module in $Modules) {
         $ExamplesExists
     )
 
+    $Health = if (-not $Complete) {
+
+        "Critical"
+
+    }
+    elseif ($ScriptCount -ne $TestCount) {
+
+        "Warning"
+
+    }
+    else {
+
+        "Healthy"
+
+    }
+
     [PSCustomObject]@{
         Module      = $Module.Name
         ScriptCount = $ScriptCount
         TestCount   = $TestCount
-        Health      = if ($ScriptCount -eq $TestCount) {
-            "Healthy"
-        }
-        else {
-            "Review"
-        }
+        Health      = $Health
         Complete    = $Complete
     }
 
