@@ -3,12 +3,19 @@
 ## Platform Summary
 
 ```text
-Toolkit Version : 3.0
+Toolkit Version : 4.0
 Installed Modules : 6
 Healthy Modules : 6
 Review Modules : 0
-Total Scripts : 18
-Total Tests : 18
+```
+
+---
+
+## Configuration-Driven Reporting
+
+```text
+Report Path : C:\Toolkit\Reports
+Dashboard   : ToolkitDashboard.html
 ```
 
 ---
@@ -21,35 +28,21 @@ Total Tests : 18
 - Health Reporting
 - Dashboard Generation
 - HTML Export
-- PSScriptAnalyzer Validation
-- Automated Pester Testing
+- Automated Testing
+- Module Validation
 
 ---
 
-## Validation Workflow
-
-```text
-GitHub Push
-        ↓
-Toolkit Validation
-        ↓
-PSScriptAnalyzer
-        ↓
-Pester Tests
-        ↓
-Build Success
-```
-
----
-
-## Dashboard Components
+## Dashboard Workflow
 
 ```text
 Get-ToolkitOverview.ps1
-        ↓
+            ↓
 New-ToolkitDashboard.ps1
-        ↓
+            ↓
 Export-ToolkitDashboard.ps1
-        ↓
+            ↓
+ReportPath From Configuration
+            ↓
 ToolkitDashboard.html
 ```

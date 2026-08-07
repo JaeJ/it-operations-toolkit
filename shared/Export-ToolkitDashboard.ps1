@@ -10,11 +10,20 @@ $OverviewScript = Join-Path `
     $PSScriptRoot `
     "Get-ToolkitOverview.ps1"
 
-$OutputPath = Join-Path `
-    $PSScriptRoot `
-    "..\examples\ToolkitDashboard.html"
-
 try {
+
+    if (-not (Test-Path $Configuration.ReportPath)) {
+
+        New-Item `
+            -Path $Configuration.ReportPath `
+            -ItemType Directory `
+            -Force | Out-Null
+
+    }
+
+    $OutputPath = Join-Path `
+        $Configuration.ReportPath `
+        "ToolkitDashboard.html"
 
     Write-ToolkitLog `
         -Message "Generating Toolkit Dashboard."
@@ -102,10 +111,10 @@ tr:nth-child(even) {
 
     $Html |
         Set-Content `
-        -Path $OutputPath
+            -Path $OutputPath
 
     Write-ToolkitLog `
-        -Message "Dashboard exported successfully."
+        -Message "Dashboard exported successfully to $OutputPath."
 
 }
 catch {
