@@ -1,28 +1,24 @@
-<#
-.SYNOPSIS
-Retrieves Active Directory groups.
-
-.DESCRIPTION
-Returns group information from Active Directory.
-
-.EXAMPLE
-Get-ADGroups.ps1
-#>
-
 [CmdletBinding()]
 param()
 
+. "$PSScriptRoot\..\..\..\shared\Import-ToolkitModule.ps1"
+
 try {
 
+    Write-ToolkitLog `
+        -Message "Retrieving Active Directory groups."
+
     Get-ADGroup -Filter * |
-    Select-Object `
-        Name,
-        GroupScope,
-        GroupCategory
+        Select-Object `
+            Name,
+            GroupScope,
+            GroupCategory
 
 }
 catch {
 
-    Write-Error "Unable to retrieve Active Directory groups."
+    Write-ToolkitLog `
+        -Level Error `
+        -Message "Unable to retrieve Active Directory groups."
 
 }

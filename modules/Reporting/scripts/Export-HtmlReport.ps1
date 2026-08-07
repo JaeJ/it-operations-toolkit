@@ -1,11 +1,31 @@
-Describe "Export-HtmlReport Script" {
+[CmdletBinding()]
+param(
 
-    It "Script Exists" {
+    [Parameter(Mandatory)]
+    [object]$InputObject,
 
-        $ScriptPath = Join-Path $PSScriptRoot "..\scripts\Export-HtmlReport.ps1"
+    [Parameter(Mandatory)]
+    [string]$Path
 
-        Test-Path $ScriptPath | Should -BeTrue
+)
 
-    }
+. "$PSScriptRoot\..\..\..\shared\Import-ToolkitModule.ps1"
+
+try {
+
+    Write-ToolkitLog `
+        -Message "Exporting HTML report to $Path."
+
+    $InputObject |
+        ConvertTo-Html |
+        Set-Content `
+            -Path $Path
+
+}
+catch {
+
+    Write-ToolkitLog `
+        -Level Error `
+        -Message "HTML report export failed."
 
 }
