@@ -65,6 +65,43 @@ jobs:
 
           }
 
+      - name: Validate Module Completeness
+        shell: pwsh
+        run: |
+
+          $Modules = Get-ChildItem `
+              -Path "./modules" `
+              -Directory
+
+          foreach ($Module in $Modules) {
+
+              $ModulePath = $Module.FullName
+
+              if (-not (Test-Path "$ModulePath/README.md")) {
+                  throw "$($Module.Name) missing README.md"
+              }
+
+              if (-not (Test-Path "$ModulePath/CHANGELOG.md")) {
+                  throw "$($Module.Name) missing CHANGELOG.md"
+              }
+
+              if (-not (Test-Path "$ModulePath/docs")) {
+                  throw "$($Module.Name) missing docs folder"
+              }
+
+              if (-not (Test-Path "$ModulePath/examples")) {
+                  throw "$($Module.Name) missing examples folder"
+              }
+
+              if (-not (Test-Path "$ModulePath/scripts")) {
+                  throw "$($Module.Name) missing scripts folder"
+              }
+
+              if (-not (Test-Path "$ModulePath/tests")) {
+                  throw "$($Module.Name) missing tests folder"
+              }
+          }
+
       - name: Validation Complete
         shell: pwsh
         run: |

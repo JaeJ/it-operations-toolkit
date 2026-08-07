@@ -3,33 +3,42 @@
 ## Platform Summary
 
 ```text
-Toolkit Version : 4.0
 Installed Modules : 6
-Healthy Modules : 6
-Review Modules : 0
+Healthy Modules   : 6
+Warning Modules   : 0
+Critical Modules  : 0
 ```
 
 ---
 
-## Configuration-Driven Reporting
-
-```text
-Report Path : C:\Toolkit\Reports
-Dashboard   : ToolkitDashboard.html
-```
-
----
-
-## Platform Capabilities
+## Validation Features
 
 - Automatic Module Discovery
+- Health Scoring
 - Configuration-Driven Behavior
 - Shared Logging
-- Health Reporting
-- Dashboard Generation
-- HTML Export
-- Automated Testing
-- Module Validation
+- Dashboard Reporting
+- Automated Pester Testing
+- PSScriptAnalyzer Validation
+- Module Completeness Validation
+
+---
+
+## Validation Workflow
+
+```text
+GitHub Push
+        ↓
+Toolkit Validation
+        ↓
+PSScriptAnalyzer
+        ↓
+Pester Tests
+        ↓
+Module Completeness Checks
+        ↓
+Build Success
+```
 
 ---
 
@@ -38,11 +47,11 @@ Dashboard   : ToolkitDashboard.html
 ```text
 Get-ToolkitOverview.ps1
             ↓
+Health Scoring Engine
+            ↓
 New-ToolkitDashboard.ps1
             ↓
 Export-ToolkitDashboard.ps1
-            ↓
-ReportPath From Configuration
             ↓
 ToolkitDashboard.html
 ```
