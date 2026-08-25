@@ -31,6 +31,17 @@ $ModuleSummary = foreach ($Module in $Modules) {
     $ChangelogExists = Test-Path "$ModulePath\CHANGELOG.md"
     $DocsExists = Test-Path "$ModulePath\docs"
     $ExamplesExists = Test-Path "$ModulePath\examples"
+    $ScriptsExists = Test-Path "$ModulePath\scripts"
+    $TestsExists = Test-Path "$ModulePath\tests"
+
+    $MaturityScore = 0
+
+    if ($ReadmeExists) { $MaturityScore += 17 }
+    if ($ChangelogExists) { $MaturityScore += 17 }
+    if ($DocsExists) { $MaturityScore += 17 }
+    if ($ExamplesExists) { $MaturityScore += 17 }
+    if ($ScriptsExists) { $MaturityScore += 16 }
+    if ($TestsExists) { $MaturityScore += 16 }
 
     $Complete = (
         $ReadmeExists -and
@@ -56,11 +67,12 @@ $ModuleSummary = foreach ($Module in $Modules) {
     }
 
     [PSCustomObject]@{
-        Module      = $Module.Name
-        ScriptCount = $ScriptCount
-        TestCount   = $TestCount
-        Health      = $Health
-        Complete    = $Complete
+        Module        = $Module.Name
+        ScriptCount   = $ScriptCount
+        TestCount     = $TestCount
+        Health        = $Health
+        Complete      = $Complete
+        MaturityScore = $MaturityScore
     }
 
 }
