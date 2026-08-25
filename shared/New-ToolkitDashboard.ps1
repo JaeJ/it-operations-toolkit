@@ -7,33 +7,65 @@ $OverviewScript = Join-Path `
 
 $ToolkitData = & $OverviewScript
 
-$Dashboard = [PSCustomObject]@{
+$InstalledModules = $ToolkitData.Count
 
-    ToolkitVersion = "3.0"
+$HealthyModules = (
+    $ToolkitData |
+    Where-Object Health -eq "Healthy"
+).Count
 
-    InstalledModules = $ToolkitData.Count
+$WarningModules = (
+    $ToolkitData |
+    Where-Object Health -eq "Warning"
+).Count
 
-    HealthyModules = (
-        $ToolkitData |
-        Where-Object Health -eq "Healthy"
-    ).Count
+$CriticalModules = (
+    $ToolkitData |
+    Where-Object Health -eq "Critical"
+).Count
 
-    ReviewModules = (
-        $ToolkitData |
-        Where-Object Health -eq "Review"
-    ).Count
+$TotalScripts = (
+    $ToolkitData.ScriptCount |
+    Measure-Object -Sum
+).Sum
 
-    TotalScripts = (
-        $ToolkitData.ScriptCount |
-        Measure-Object -Sum
-    ).Sum
+$TotalTests = (
+    $ToolkitData.TestCount |
+    Measure-Object -Sum
+).Sum
 
-    TotalTests = (
-        $ToolkitData.TestCount |
-        Measure-Object -Sum
-    ).Sum
+$AverageMaturity = :Round(
+    (
+        $ToolkitData.MaturityScore |
+        Measure-Object -Average
+    ).Average,
+    0
+)
 
-    GeneratedOn = Get-Date
+$PlatformHealth = if ($CriticalModules -gt 0) {
+
+    "Critical"
+
+}
+elseif ($WarningModules -gt 0) {
+
+    "Warning"
+
+}
+else {
+
+    "Healthy"
+
 }
 
-$Dashboard
+[PSCustomObject]@{
+    InstalledModules  = $InstalledModules
+    HealthyModules    = $HealthyModules
+    WarningModules    = $WarningModules
+    CriticalModules   = $CriticalModules
+    TotalScripts      = $TotalScripts
+    TotalTests        = $TotalTests
+    AverageMaturity   = $AverageMaturity
+    PlatformHealth    = $PlatformHealth
+    GeneratedOn       = Get-Date
+}

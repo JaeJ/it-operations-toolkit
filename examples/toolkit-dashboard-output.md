@@ -1,12 +1,23 @@
 # IT Operations Toolkit Dashboard Example
 
-## Platform Summary
+## Platform Health
 
 ```text
-Installed Modules : 6
-Healthy Modules   : 6
-Warning Modules   : 0
-Critical Modules  : 0
+Platform Health  : Healthy
+Installed Modules: 6
+Healthy Modules  : 6
+Warning Modules  : 0
+Critical Modules : 0
+```
+
+---
+
+## Platform Metrics
+
+```text
+Total Scripts         : 18
+Total Tests           : 18
+Average Maturity      : 100
 ```
 
 ---
@@ -14,8 +25,6 @@ Critical Modules  : 0
 ## Module Maturity
 
 ```text
-Module            MaturityScore
-------            -------------
 Networking        100
 Diagnostics       100
 ActiveDirectory   100
@@ -26,31 +35,12 @@ Reporting         100
 
 ---
 
-## Health Scoring
-
-### Healthy
-
-- Documentation present
-- Tests match scripts
-- Structure complete
-
-### Warning
-
-- Script count does not match test count
-
-### Critical
-
-- Missing documentation
-- Missing examples
-- Missing required folders
-
----
-
-## Dashboard Features
+## Dashboard Capabilities
 
 - Automatic Module Discovery
 - Health Scoring
 - Maturity Scoring
+- Platform Health Calculations
 - Configuration-Driven Reporting
 - Shared Logging
 - Automated Validation
