@@ -22,7 +22,24 @@ $CriticalModules = (
     Where-Object Health -eq "Critical"
 ).Count
 
+$ValidationStatus = if ($CriticalModules -gt 0) {
+
+    "Failed"
+
+}
+elseif ($WarningModules -gt 0) {
+
+    "Warning"
+
+}
+else {
+
+    "Passed"
+
+}
+
 [PSCustomObject]@{
+    ValidationStatus = $ValidationStatus
     ModulesValidated = $ToolkitData.Count
     HealthyModules   = $HealthyModules
     WarningModules   = $WarningModules

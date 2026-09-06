@@ -59,13 +59,13 @@ else {
 }
 
 [PSCustomObject]@{
-    InstalledModules  = $InstalledModules
-    HealthyModules    = $HealthyModules
-    WarningModules    = $WarningModules
-    CriticalModules   = $CriticalModules
-    TotalScripts      = $TotalScripts
-    TotalTests        = $TotalTests
-    AverageMaturity   = $AverageMaturity
-    PlatformHealth    = $PlatformHealth
-    GeneratedOn       = Get-Date
+    InstalledModules = $InstalledModules
+    HealthyModules   = $HealthyModules
+    WarningModules   = $WarningModules
+    CriticalModules  = $CriticalModules
+    TotalScripts     = $TotalScripts
+    TotalTests       = $TotalTests
+    AverageMaturity  = "$AverageMaturity%"
+    PlatformHealth   = $PlatformHealth
+    GeneratedOn      = Get-Date
 }
