@@ -34,7 +34,7 @@ $TotalTests = (
     Measure-Object -Sum
 ).Sum
 
-$AverageMaturity = :Round(
+$AverageMaturity = [Math\]::Round(
     (
         $ToolkitData.MaturityScore |
         Measure-Object -Average
